@@ -6,22 +6,23 @@ from pages.login_page import LoginPage
 from dotenv import load_dotenv
 load_dotenv()
 
-corp_user = os.getenv("ENTERPRISE_USERNAME")
-corp_pass = os.getenv("ENTERPRISE_PASSWORD")
+ENTERPRISE_user = os.getenv("ENTERPRISE_USERNAME")
+ENTERPRISE_pass = os.getenv("ENTERPRISE_PASSWORD")
+TestURL = os.getenv("BASE_URL")
 
 #確認總覽功能正常
 def test_Staff_Login():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)  #t=關閉視窗 f開啟視窗
         page = browser.new_page()
-        page.goto("https://uat-school-system.weclass.com.tw/v2/jaouyang-dev#/login")
+        page.goto(TestURL)
 
         login_page = LoginPage(page)
 
         #帳號密碼這邊
     
-        login_page.username_input.fill(corp_user)
-        login_page.password_input.fill(corp_pass)
+        login_page.username_input.fill(ENTERPRISE_user)
+        login_page.password_input.fill(ENTERPRISE_pass)
 
         login_page.login_button.click()
 
